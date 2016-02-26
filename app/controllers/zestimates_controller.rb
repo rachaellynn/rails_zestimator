@@ -18,7 +18,6 @@ class ZestimatesController < ApplicationController
 		#call the zillow api
 		@ID = ENV["zillow_api_id"]
 		#@ID = Figaro.env.zillow_api_id
-		#@ID = "X1-ZWz19un24nbeh7_4bx42"
 		url = 'http://www.zillow.com/webservice/GetSearchResults.htm'
 		@call_url = url + "?zws-id=" + @ID + "&address=" + street + "&citystatezip=" + city + state + zipcode
 		@doc = Nokogiri::HTML(open(@call_url))
