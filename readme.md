@@ -1,3 +1,1 @@
-== README
-
-A home price estimate in rails using the zillow api
+A home price estimator in rails using the zillow api
