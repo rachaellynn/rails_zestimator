@@ -13,3 +13,12 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+background: url(alexander.jpg) no-repeat center center fixed; /* modified background url */ 
+color: white;
+}
+
+.well {
+color: black;
+}
