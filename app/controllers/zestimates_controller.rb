@@ -1,5 +1,15 @@
 class ZestimatesController < ApplicationController
+	# next steps as of 2/26
+	# change to postgres database (to prepare for heroku deployment) ok 2/27/16
+	# add personal contact info on main form and save it (and other info) to database
+	# zillow branding on results form (per api request)
+	# zillow (and/or my own) error handling and required fields
+	# implement split gem for basic testing (cosmetic changes)
+	# implement split gem for different flows (consult with mlm)
+
 	skip_before_filter  :verify_authenticity_token
+	
+
 	require 'open-uri'
 
 	def index
