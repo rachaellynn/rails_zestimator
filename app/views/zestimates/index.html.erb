@@ -7,7 +7,7 @@
 
 
       <%= form_for :zestimate do |f| %>
-      
+
         <div class="from-group">
           <%= f.label :name %>
           <%= f.text_field :name, class: 'form-control' %>
@@ -17,6 +17,10 @@
           <%= f.label :email %>  
           <%= f.text_field :email, class: "form-control" %>
         </div>
+
+        <% flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, class: name %>
+        <% end -%>
 
         <div class="form-group">
           <%= f.label :street, "Street Address" %>  

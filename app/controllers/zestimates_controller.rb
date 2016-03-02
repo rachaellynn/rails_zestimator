@@ -20,32 +20,40 @@ class ZestimatesController < ApplicationController
 
 	def create
 	 	#pull data from the form
-		street = params[:street]
-		city = params[:city]
-		state = params[:state]
-		zipcode = params[:zipcode]
+		street = params[:zestimate][:street]
+		city = params[:zestimate][:city]
+		state = params[:zestimate][:state]
+		zipcode = params[:zestimate][:zipcode]
 
 		@title = 'Your Home Value Estimate'
 		#call the zillow api
 		@ID = ENV["zillow_api_id"]
 		#@ID = Figaro.env.zillow_api_id
-		url = 'http://www.zillow.com/webservice/GetSearchResults.htm'
-		# http://www.zillow.com/webservice/GetDeepSearchResults.htm #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
+		#url = 'http://www.zillow.com/webservice/GetSearchResults.htm'
+		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
-		if !zipcode
+		if street == "" || zipcode == ""
 			flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
-			redirect 'zestimates_path'
+			redirect_to zestimates_path
 		else
-			flash[:error] = "this is our message"
+			#flash[:error] = "this is our message"
 			@call_url = url + "?zws-id=" + @ID + "&address=" + street + "&citystatezip=" + city + state + zipcode
 			@doc = Nokogiri::HTML(open(@call_url))
-			@street = @doc.at_xpath("//street").content
-			@city = @doc.at_xpath("//city").content
-			@state = @doc.at_xpath("//state").content
-			@zipcode = @doc.at_xpath("//zipcode").content
-			@zestimate = @doc.at_xpath("//amount").content
-			@zestimate_low = @doc.at_xpath("//low").content
-			@zestimate_high = @doc.at_xpath("//high").content
+			@code = @doc.at_xpath("//code").content
+			flash[:error] = @code
+			if @code != "0"
+				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
+				redirect_to zestimates_path
+			else
+				@street = @doc.at_xpath("//street").content
+				@city = @doc.at_xpath("//city").content
+				@state = @doc.at_xpath("//state").content
+				@zipcode = @doc.at_xpath("//zipcode").content
+				@zestimate = @doc.at_xpath("//amount").content
+				@zestimate_low = @doc.at_xpath("//low").content
+				@zestimate_high = @doc.at_xpath("//high").content
+				@usecode = @doc.at_xpath("//usecode").content.split("(?<!^)(?=[A-Z])")
+			end	
 		end
 
 	end
