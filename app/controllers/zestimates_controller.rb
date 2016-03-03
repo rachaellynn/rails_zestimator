@@ -33,7 +33,7 @@ class ZestimatesController < ApplicationController
 		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
 		if street == "" || zipcode == ""
-			flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
+			flash[:error] = "No street or Zip -- Please enter a valid street address along wtih a city and state OR zipcode"
 			redirect_to zestimates_path
 		else
 			#flash[:error] = "this is our message"
@@ -42,7 +42,8 @@ class ZestimatesController < ApplicationController
 			@code = @doc.at_xpath("//code").content
 			flash[:error] = @code
 			if @code != "0"
-				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
+				flash[:error] = "No clear response -- Please enter a valid street address along wtih a city and state OR zipcode"
+				flash[:error] = @call_url
 				redirect_to zestimates_path
 			else
 				@street = @doc.at_xpath("//street").content
@@ -52,7 +53,7 @@ class ZestimatesController < ApplicationController
 				@zestimate = @doc.at_xpath("//amount").content
 				@zestimate_low = @doc.at_xpath("//low").content
 				@zestimate_high = @doc.at_xpath("//high").content
-				@usecode = @doc.at_xpath("//usecode").content.split("(?<!^)(?=[A-Z])")
+				@usecode = @doc.at_xpath("//usecode")
 			end	
 		end
 
