@@ -40,23 +40,28 @@ class ZestimatesController < ApplicationController
 			@call_url = url + "?zws-id=" + @ID + "&address=" + street + "&citystatezip=" + city + state + zipcode
 			@doc = Nokogiri::HTML(open(@call_url))
 			@code = @doc.at_xpath("//code").content
-			flash[:error] = @code
+			# flash[:error] = @code
 			if @code != "0"
-				flash[:error] = "No clear response -- Please enter a valid street address along wtih a city and state OR zipcode"
-				flash[:error] = @call_url
+				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode" + @call_url
+					#flash[:error] = @call_url
 				redirect_to zestimates_path
 			else
 				@street = @doc.at_xpath("//street").content
 				@city = @doc.at_xpath("//city").content
 				@state = @doc.at_xpath("//state").content
 				@zipcode = @doc.at_xpath("//zipcode").content
-				@zestimate = @doc.at_xpath("//amount").content
+				@zestimate_value = @doc.at_xpath("//amount").content
 				@zestimate_low = @doc.at_xpath("//low").content
 				@zestimate_high = @doc.at_xpath("//high").content
 				@usecode = @doc.at_xpath("//usecode")
+				@zestimate = Zestimate.new(zestimate_params)
 			end	
 		end
 
+	end
+
+	def edit
+  		@zestimate = Zestimate.find(params[:id])
 	end
 
 private	

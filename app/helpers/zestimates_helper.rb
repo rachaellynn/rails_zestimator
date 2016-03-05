@@ -20,8 +20,9 @@ module ZestimatesHelper
 	end
 
 	def codestring(string)
-		string = /([A-Z][a-z]+[A-Z][a-z]+)/.match(string)[0]
-		use_hash = { 'SingleFamily' => 'Single Family Homes', 'Duplex' => 'Two-Family Homes', 'Triplex': 'Three-Family Homes', 'Quadruplex' => 'Multi-Family Homes', 'Condominium' => 'Condominium Homes', 'Cooperative' => 'Condominium Homes', 'Mobile' => 'Mobile Homes', 'MultiFamily2To4' => 'Multi-Family Homes', 'MultiFamily5Plus' => 'Multi-Family Homes', 'Timeshare' => 'Timeshares', 'Miscellaneous' => 'Miscellaneous Homes', 'VacantResidentialLand' => 'Land' }
+		string = /([A-Z][a-zA-Z\d]+)/.match(string)[0]
+		@output = string
+		use_hash = { '' => 'homes', 'SingleFamily' => 'Single Family Homes', 'Duplex' => 'Two-Family Homes', 'Triplex': 'Three-Family Homes', 'Quadruplex' => 'Multi-Family Homes', 'Condominium' => 'Condominium Homes', 'Cooperative' => 'Condominium Homes', 'Mobile' => 'Mobile Homes', 'MultiFamily2To4' => 'Multi-Family Homes', 'MultiFamily5Plus' => 'Multi-Family Homes', 'Timeshare' => 'Timeshares', 'Miscellaneous' => 'Miscellaneous Homes', 'VacantResidentialLand' => 'Land' }
 		@output = use_hash[string]	
 	end	
 
