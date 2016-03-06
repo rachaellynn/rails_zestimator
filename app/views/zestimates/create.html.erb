@@ -24,11 +24,20 @@
 
 	</div>	
 
+	<%= form_for :zestimate, url: zestimate_path(@zestimate), method: :patch do |f| %>	
+    
+          <%= f.check_box :market_report, class: 'check-box' %>
+          <%= f.label :market_report %>
+
+
+	<% end %>
+
 	<form method="post">
+
 
 		<div class="checkbox">
 	    	<label>
-	      		<input type="checkbox" name="market_report">Send me a monthly market report for homes in <%= codestring(@usecode) %> for <%= @city %></b>
+	      		<input type="checkbox" name="market_report">Send me a monthly market report for <%= codestring(@property_type) %> in <%= @city %></b>
 	    	</label>
 	    </div>
 	    
@@ -48,9 +57,6 @@
 	          <input type = "text-area" class="form-control" name="comments">
 	    </div>  
 
-	    <div class="form-group">
-        	<%= f.submit "Submit" %>
-      	</div>  
 	    
 	 </form>
 

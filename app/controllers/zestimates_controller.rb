@@ -24,6 +24,8 @@ class ZestimatesController < ApplicationController
 		city = params[:zestimate][:city]
 		state = params[:zestimate][:state]
 		zipcode = params[:zestimate][:zipcode]
+		name = params[:zestimate][:name]
+		email = params[:zestimate][:email]
 
 		@title = 'Your Home Value Estimate'
 		#call the zillow api
@@ -53,8 +55,11 @@ class ZestimatesController < ApplicationController
 				@zestimate_value = @doc.at_xpath("//amount").content
 				@zestimate_low = @doc.at_xpath("//low").content
 				@zestimate_high = @doc.at_xpath("//high").content
-				@usecode = @doc.at_xpath("//usecode")
-				@zestimate = Zestimate.new(zestimate_params)
+				@property_type = @doc.at_xpath("//usecode")
+				@property_type = /([A-Z][a-zA-Z\d]+)/.match(@property_type)[0]
+				#@zestimate = Zestimate.new(zestimate_params)
+				@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
+				@zestimate.save
 			end	
 		end
 
@@ -67,7 +72,7 @@ class ZestimatesController < ApplicationController
 private	
 	
 	def zestimate_params
-		params.require(:zestimate).permit(:name, :email, :street, :city, :state, :zipcode, :agent_contact, :market_report, :contact, :comments)
+		params.require(:zestimate).permit(:name, :email, :street, :city, :state, :zipcode, :property_type, :agent_contact, :market_report, :contact, :comments)
 	end	
 
 end
