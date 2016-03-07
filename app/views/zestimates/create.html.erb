@@ -25,44 +25,39 @@
 	</div>	
 
 	<%= form_for :zestimate, url: zestimate_path(@zestimate), method: :patch do |f| %>	
+ 
+
+ <div class="row" style="margin-top: 30px">   	
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-6">	
+    	<div class="form-horizontal">
+          <%= f.check_box :market_report, class: 'check-box' %> Send me a monthly market report for <b><%= codestring(@property_type) %></b> in <b><%= @city %></b>
+        </div>
+
+        <div class="form-horizontal">  
+          	<%= f.check_box :agent_contact, class: 'check-box' %>
+          	Please have an agent contact me to prepare an opinion of value and marketing plan
+        </div>
+		    
     	<div class="form-group">
-          <%= f.check_box :market_report, class: 'check-box' %> 
-          Send me a monthly market report for <b><%= codestring(@property_type) %></b> in <b><%= @city %></b>
+  			<%= f.label :email %>  
+  			<%= f.text_field :email, class: "form-control" %>
+		</div> 
+
+        <div class="form-group">
+        	<%= f.label "Name and Phone Number" %>
+        	<%= f.text_field :contact, class: "form-control" %>
         </div>
-        
-        <div class="form-group">  
-          <%= f.check_box :agent_contact, class: 'check-box' %>
-          Please have an agent contact me to prepare an opinion of value and marketing plan
+
+        <div class="form-group">
+        	<%= f.submit "Submit" %>
         </div>
+
+    <div class="col-md-3">
+    </div>
 
 	<% end %>
-
-	<form method="post">
-
-
-		<div class="checkbox">
-	    	<label>
-	      		<input type="checkbox" name="market_report">Send me a monthly market report for <%= codestring(@property_type) %> in <%= @city %></b>
-	    	</label>
-	    </div>
-	    
-	    <div class="checkbox">
-	    	<label>
-	      		<input type="checkbox" name="agent_contact">Please have an agent contact me to prepare an opinion of value and marketing plan
-	    	</label>
-	    </div>
-
-	    <div class="">
-	          <label for="contact">Your contact info</label>  
-	          <input type = "text" class="form-control" name="contact">
-	    </div>
-
-	    <div class="">
-	          <label for="comments">Question or Comments</label>  
-	          <input type = "text-area" class="form-control" name="comments">
-	    </div>  
-
-	    
-	 </form>
-
+</div>
 </div>
