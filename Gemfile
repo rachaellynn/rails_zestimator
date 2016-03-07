@@ -30,6 +30,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+
+# adding redis to store results from split gem's a/b tests
+gem 'redis', '~>3.2'
+gem 'split'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

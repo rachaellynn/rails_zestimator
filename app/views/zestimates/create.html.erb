@@ -25,10 +25,15 @@
 	</div>	
 
 	<%= form_for :zestimate, url: zestimate_path(@zestimate), method: :patch do |f| %>	
-    
-          <%= f.check_box :market_report, class: 'check-box' %>
-          <%= f.label :market_report %>
-
+    	<div class="form-group">
+          <%= f.check_box :market_report, class: 'check-box' %> 
+          Send me a monthly market report for <b><%= codestring(@property_type) %></b> in <b><%= @city %></b>
+        </div>
+        
+        <div class="form-group">  
+          <%= f.check_box :agent_contact, class: 'check-box' %>
+          Please have an agent contact me to prepare an opinion of value and marketing plan
+        </div>
 
 	<% end %>
 
