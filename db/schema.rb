@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227230029) do
+ActiveRecord::Schema.define(version: 20160311155617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,11 @@ ActiveRecord::Schema.define(version: 20160227230029) do
     t.integer  "agent_contact"
     t.string   "contact"
     t.text     "commments"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "zestimate_value"
+    t.string   "zestimate_low"
+    t.string   "zestimate_high"
   end
 
 end
