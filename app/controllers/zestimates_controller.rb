@@ -26,7 +26,7 @@ class ZestimatesController < ApplicationController
 		zipcode = params[:zestimate][:zipcode]
 		name = params[:zestimate][:name]
 		email = params[:zestimate][:email]
-
+		
 		@title = 'Your Home Value Estimate'
 		#call the zillow api
 		@ID = ENV["zillow_api_id"]
@@ -57,9 +57,9 @@ class ZestimatesController < ApplicationController
 				@zestimate_high = @doc.at_xpath("//high").content
 				@property_type = @doc.at_xpath("//usecode")
 				@property_type = /([A-Z][a-zA-Z\d]+)/.match(@property_type)[0]
-				@comments = "something here"
-				#@zestimate = Zestimate.new(zestimate_params)
-				@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
+				@zestimate = Zestimate.new(zestimate_params)
+				@zestimate.update_attribute(:property_type, @property_type)
+				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 				@zestimate.save
 			end	
 		end
@@ -72,7 +72,34 @@ class ZestimatesController < ApplicationController
 
 	def update
 		@zestimate = Zestimate.find(params[:id])
-		
+		agent_contact = params[:zestimate][:agent_contact]
+		market_report = params[:zestimate][:market_report]
+		contact = params[:zestimate][:contact]
+		@property_type = "single family"
+		if @zestimate.update_attribute(:property_type, @property_type)
+			@message0 = "property type updated"
+		end
+
+		if @zestimate.update_attributes(zestimate_params)
+				@message1 = "An agent will be in touch with you soon."
+		elsif @market_report != ""
+				@message2 = "You'll receive your first monthly market report shortly"
+		# handle a successful update
+		else
+			render 'edit'
+		end
+
+	end
+  # def update
+  #   @user = User.find(params[:id])
+  #   if @user.update_attributes(user_params)
+  #     # Handle a successful update.
+  #   else
+  #     render 'edit'
+  #   end
+  # end
+
+
 
 private	
 	
