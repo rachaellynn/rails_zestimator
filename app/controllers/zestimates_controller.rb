@@ -58,9 +58,9 @@ class ZestimatesController < ApplicationController
 				@property_type = @doc.at_xpath("//usecode")
 				@property_type = /([A-Z][a-zA-Z\d]+)/.match(@property_type)[0]
 				@zestimate = Zestimate.new(zestimate_params)
-				@zestimate.update_attribute(:property_type, @property_type)
-				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 				@zestimate.save
+				@zestimate.update_attributes(:property_type => @property_type, :zestimate_value => @zestimate_value, :zestimate_low => @zestimate_low, :zestimate_high => @zestimate_high)
+				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 			end	
 		end
 
