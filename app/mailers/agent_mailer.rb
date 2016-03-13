@@ -17,7 +17,9 @@ class AgentMailer < ApplicationMailer
     @agent_contact = agent_contact
     @market_report = market_report
     agents = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
-  	email = agents["1"]
+  	random = Random.new
+    random = random.rand(1..2).to_s #set max range to the number of agents in the hash
+    email = agents[random]
   	mail(to: email, subject: 'Home Valuation Lead')
   end
 
