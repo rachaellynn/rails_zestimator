@@ -26,4 +26,8 @@ module ZestimatesHelper
 		@output = use_hash[string]	
 	end	
 
+	def email
+
+	end
+
 end

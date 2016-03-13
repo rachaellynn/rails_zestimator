@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Home Value Lead Info</h1>
+    <p>
+      Name: <%= @name %><br>
+      Email: <%= @email %><br>
+      Contact Info: <%= @contact %><br>
+      Address: <%= @street %> <br>
+      City/State/Zip: <%= @city %> <%= @state %> <%= @zipcode %><br>
+      Property Type: <%= @property_type %><br>
+      Zestimate: <%= currency(@zestimate_value) %><br>
+      Low Zestimate: <%= currency(@zestimate_high) %><br>
+      High Zestimate: <%= currency(@zestimate_high) %><br>
+    </p>
+  </body>
+</html>

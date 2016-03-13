@@ -35,7 +35,7 @@ class ZestimatesController < ApplicationController
 		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
 		if street == "" || zipcode == ""
-			flash[:error] = "No street or Zip -- Please enter a valid street address along wtih a city and state OR zipcode"
+			flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
 			redirect_to zestimates_path
 		else
 			#flash[:error] = "this is our message"
@@ -44,7 +44,7 @@ class ZestimatesController < ApplicationController
 			@code = @doc.at_xpath("//code").content
 			# flash[:error] = @code
 			if @code != "0"
-				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode" + @call_url
+				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
 					#flash[:error] = @call_url
 				redirect_to zestimates_path
 			else
@@ -72,19 +72,31 @@ class ZestimatesController < ApplicationController
 
 	def update
 		@zestimate = Zestimate.find(params[:id])
-		agent_contact = params[:zestimate][:agent_contact]
-		market_report = params[:zestimate][:market_report]
-		contact = params[:zestimate][:contact]
-		@property_type = "single family"
-		if @zestimate.update_attribute(:property_type, @property_type)
-			@message0 = "property type updated"
-		end
-
+		agent_contact = @zestimate.agent_contact
+		market_report = @zestimate.market_report
+		contact = @zestimate.contact
+		email = @zestimate.email
+		name = @zestimate.name
+		street = @zestimate.street
+		city = @zestimate.city
+		state = @zestimate.state
+		zipcode = @zestimate.zipcode
+		property_type = @zestimate.property_type
+		zestimate_value = @zestimate.zestimate_value
+		zestimate_low = @zestimate.zestimate_low
+		zestimate_high = @zestimate.zestimate_high
+		
 		if @zestimate.update_attributes(zestimate_params)
-				@message1 = "An agent will be in touch with you soon."
-		elsif @market_report != ""
-				@message2 = "You'll receive your first monthly market report shortly"
-		# handle a successful update
+			if (agent_contact == "1" || market_report == "1") && email != ""
+				flash[:danger] == "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
+			elsif market_report == "1" && agent_contact == "1"
+				flash[:success] == "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
+			elsif market_report == "1" && agent_contact == 0
+				flash[:success] = "Thanks! You'll receive your first market report shortly."
+			else
+				flash[:success] = "Thanks! An agent will be in touch with you shortly"
+			end
+		AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 		else
 			render 'edit'
 		end

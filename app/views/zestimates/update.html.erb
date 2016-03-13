@@ -1,8 +1,8 @@
 <h3>Thank you!</h3>
 
-<%= @message0 %><br>
-<%= @message1 %><br>
-<%= @message2 %><br>
+<% flash.each do |name, msg| -%>
+   <%= content_tag :div, msg, class: name %>
+<% end -%>
 
 Any questions? Ring us at 617.864.4600 or <a href="mailto: info@eplacehomes.com">email us</a>. 
 	

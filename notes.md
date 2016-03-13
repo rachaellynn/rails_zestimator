@@ -87,3 +87,9 @@
 	  postgres -D /usr/local/var/postgres
 	==> Summary
 	🍺  /usr/local/Cellar/postgresql/9.5.1: 3,118 files, 35M
+
+# Sending Data-Rich Emails using Action Mailer
+
+>> "Unlike controllers, the mailer instance doesn't have any context about the incoming request" => I think that I have to use a helper to pull data in, then reference the helper in the ActionMailer(!) -- see http://guides.rubyonrails.org/action_mailer_basics.html#using-action-mailer-helpers
+
+ 
