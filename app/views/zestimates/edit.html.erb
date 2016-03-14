@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-12">
+  <h3>for <%= @street %> <%= @city %>, <%= @state %>  <%= @zipcode %></h3>
+  </div>
+</div> 
+
+<div class="well">
+	<div class="row">
+
+		<div class="col-md-4">
+			<h3>low zestimate<br>
+			<%= currency(@zestimate_low) %></h3>
+		</div>
+
+		<div class="col-md-4">
+			<h2>Your Zestimate<br>
+			<%= currency(@zestimate_value) %></h2>
+		</div>
+
+		<div class="col-md-4">
+			<h3>high zestimate<br>
+			<%= currency(@zestimate_high) %></h3>
+		</div>
+
+	</div>	
+
+	<%= form_for :zestimate, url: zestimate_path(@zestimate), method: :patch do |f| %>	
+ 
+
+ <div class="row" style="margin-top: 30px">   	
+    <div class="col-md-3">
+    </div>
+
+    <div class="col-md-6">	
+    	<div class="form-horizontal">
+          <%= f.check_box :market_report, class: 'check-box' %> Send me a monthly market report for <b><%= @property_type %></b> in <b><%= @city %></b>
+        </div>
+
+        <div class="form-horizontal">  
+          	<%= f.check_box :agent_contact, class: 'check-box' %>
+          	Please have an agent contact me to prepare an opinion of value and marketing plan
+        </div>
+		    
+    	<div class="form-group">
+  			<%= f.label :email %>  
+  			<%= f.text_field :email, class: "form-control" %>
+		</div> 
+
+        <div class="form-group">
+        	<%= f.label "Name and Phone Number" %>
+        	<%= f.text_field :contact, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+        	<%= f.submit "Submit" %>
+        </div>
+
+    <div class="col-md-3">
+    </div>
+
+	<% end %>
+</div>
+</div>

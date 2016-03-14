@@ -1,13 +1,16 @@
 class ZestimatesController < ApplicationController
-	# next steps as of 2/26
-	# 1. change to postgres database (to prepare for heroku deployment) ok 2/27/16 // 
+	# (done 2/28.16) change to postgres database (to prepare for heroku deployment) ok 2/27/16 // 
 	# remember to turn on/connect to the postgres database after starting up the rails server -- is there a way to automate this?
 
-	# add personal contact info on main form and save it (and other info) to database
+	# (done 3.13.16) add personal contact info on main form and save it (and other info) to database
+	# (done 3.13.16) send email to random agent with all of the contact info
+	# error handling is not working on submission page
 	# zillow branding on results form (per api request)
 	# zillow (and/or my own) error handling and required fields
 	# implement split gem for basic testing (cosmetic changes)
 	# implement split gem for different flows (consult with mlm)
+	# deploy to heroku
+	# set up tests
 
 	skip_before_filter  :verify_authenticity_token
 	
@@ -35,7 +38,7 @@ class ZestimatesController < ApplicationController
 		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
 		if street == "" || zipcode == ""
-			flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
+			flash[:danger] = "Please enter a valid street address along wtih a city and state OR zipcode"
 			redirect_to zestimates_path
 		else
 			#flash[:error] = "this is our message"
@@ -44,7 +47,7 @@ class ZestimatesController < ApplicationController
 			@code = @doc.at_xpath("//code").content
 			# flash[:error] = @code
 			if @code != "0"
-				flash[:error] = "Please enter a valid street address along wtih a city and state OR zipcode"
+				flash[:danger] = "Please enter a valid street address along wtih a city and state OR zipcode"
 					#flash[:error] = @call_url
 				redirect_to zestimates_path
 			else
@@ -67,10 +70,24 @@ class ZestimatesController < ApplicationController
 	end
 
 	def edit
-  		@zestimate = Zestimate.find(params[:id])
+		@zestimate = Zestimate.find(params[:id])
+		@agent_contact = @zestimate.agent_contact
+		@market_report = @zestimate.market_report
+		@contact = @zestimate.contact
+		@email = @zestimate.email
+		@name = @zestimate.name
+		@street = @zestimate.street
+		@city = @zestimate.city
+		@state = @zestimate.state
+		@zipcode = @zestimate.zipcode
+		@property_type = @zestimate.property_type
+		@zestimate_value = @zestimate.zestimate_value
+		@zestimate_low = @zestimate.zestimate_low
+		@zestimate_high = @zestimate.zestimate_high
 	end
 
 	def update
+		@title = "Thank you!"
 		@zestimate = Zestimate.find(params[:id])
 		agent_contact = @zestimate.agent_contact
 		market_report = @zestimate.market_report
@@ -86,15 +103,23 @@ class ZestimatesController < ApplicationController
 		zestimate_low = @zestimate.zestimate_low
 		zestimate_high = @zestimate.zestimate_high
 		
+		
+
 		if @zestimate.update_attributes(zestimate_params)
-			if (agent_contact == "1" || market_report == "1") && email != ""
-				flash[:danger] == "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
-			elsif market_report == "1" && agent_contact == "1"
-				flash[:success] == "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
-			elsif market_report == "1" && agent_contact == 0
-				flash[:success] = "Thanks! You'll receive your first market report shortly."
+			@zestimate = Zestimate.find(params[:id])
+			market_report = @zestimate.market_report
+			agent_contact = @zestimate.agent_contact
+			email = @zestimate.email
+			contact = @zestimate.contact
+			if email == ""
+				flash[:danger] = "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
+				redirect_to zestimate_path action: "update", id: params[:id]
+			elsif market_report == "1" && agent_contact == "1" & email 
+				flash.now[:success] = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
+			elsif market_report == "1" && agent_contact == ""
+				flash.now[:success] = "Thanks! You'll receive your first market report shortly."
 			else
-				flash[:success] = "Thanks! An agent will be in touch with you shortly"
+				flash.now[:success] = "Thanks! An agent will be in touch with you shortly"
 			end
 		AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 		else
@@ -102,15 +127,6 @@ class ZestimatesController < ApplicationController
 		end
 
 	end
-  # def update
-  #   @user = User.find(params[:id])
-  #   if @user.update_attributes(user_params)
-  #     # Handle a successful update.
-  #   else
-  #     render 'edit'
-  #   end
-  # end
-
 
 
 private	

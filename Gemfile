@@ -8,7 +8,9 @@ gem 'rails', '4.2.4'
 # Use postgres as the database for Active Record
 gem 'pg', '~> 0.18.2'
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '3.3.1'
+# added because flash messages not working
+gem 'font-awesome-sass', '4.2.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -56,4 +58,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+group :production do
+	gem 'rails_12factor'
+end
+
 
