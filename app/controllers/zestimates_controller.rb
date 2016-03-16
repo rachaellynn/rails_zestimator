@@ -1,16 +1,4 @@
 class ZestimatesController < ApplicationController
-	# done 2/28.16 -- change to postgres database (to prepare for heroku deployment) ok 2/27/16 // 
-	# remember to turn on/connect to the postgres database after starting up the rails server -- is there a way to automate this?
-
-	# done 3.13.16 -- add personal contact info on main form and save it (and other info) to database
-	# done 3.13.16 -- send email to random agent with all of the contact info
-	# done 3.14.16 -- error handling is not working on submission page
-	# zillow branding on results form (per api request)
-	# zillow (and/or my own) error handling and required fields
-	# implement split gem for basic testing (cosmetic changes)
-	# implement split gem for different flows (consult with mlm)
-	# deploy to heroku
-	# set up tests
 
 	skip_before_filter  :verify_authenticity_token
 	
@@ -60,6 +48,7 @@ class ZestimatesController < ApplicationController
 				@zestimate_high = @doc.at_xpath("//high").content
 				@property_type = @doc.at_xpath("//usecode")
 				@property_type = /([A-Z][a-zA-Z\d]+)/.match(@property_type)[0]
+				@homedetails = @doc.at_xpath("//homedetails").content
 				@zestimate = Zestimate.new(zestimate_params)
 				@zestimate.save
 				@zestimate.update_attributes(:property_type => @property_type, :zestimate_value => @zestimate_value, :zestimate_low => @zestimate_low, :zestimate_high => @zestimate_high)

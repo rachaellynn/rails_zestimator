@@ -22,6 +22,13 @@
 			<%= currency(@zestimate_high) %></h3>
 		</div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <a href="http://www.zillow.com"><img src="http://www.zillow.com/widgets/GetVersionedResource.htm?path=/static/logos/Zillowlogo_150x40_rounded.gif" width="150" height="40" alt="Zillow Real Estate Search" /></a><br>
+        See more information for <a href="<%= @homedetails %>"><%= @street %></a> on Zillow.
+      </div>
+    </div>
+
 	</div>	
 
 	<%= form_for :zestimate, url: zestimate_path(@zestimate), method: :patch do |f| %>	
