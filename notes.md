@@ -92,4 +92,30 @@
 
 >> "Unlike controllers, the mailer instance doesn't have any context about the incoming request" => I think that I have to use a helper to pull data in, then reference the helper in the ActionMailer(!) -- see http://guides.rubyonrails.org/action_mailer_basics.html#using-action-mailer-helpers
 
- 
+creating app on heroku
+15-2012-Macbook-Pro:rails_zestimator rachael$ heroku create
+Creating app... done, stack is cedar-14
+https://morning-beyond-67227.herokuapp.com/ | https://git.heroku.com/morning-beyond-67227.git 
+
+notes from heroku deployment:
+
+remote: ###### WARNING:
+remote:        You have not declared a Ruby version in your Gemfile.
+remote:        To set your Ruby version add this line to your Gemfile:
+remote:        ruby '2.2.4'
+remote:        # See https://devcenter.heroku.com/articles/ruby-versions for more information.
+remote: 
+remote: ###### WARNING:
+remote:        No Procfile detected, using the default web server.
+remote:        We recommend explicitly declaring how to boot your server process via a Procfile.
+remote:        https://devcenter.heroku.com/articles/ruby-default-web-server
+remote: 
+remote: -----> Discovering process types
+remote:        Procfile declares types     -> (none)
+remote:        Default types for buildpack -> console, rake, web, worker
+remote: 
+remote: -----> Compressing...
+remote:        Done: 33.9M
+remote: -----> Launching...
+remote:        Released v6
+remote:        https://morning-beyond-67227.herokuapp.com/ deployed to Heroku
