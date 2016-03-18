@@ -81,15 +81,26 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.smtp_settings = {
-  address: "smtp.gmail.com",
-  port: 587,
-  domain: "example.com",
-  authentication: "plain",
-  enable_starttls_auto: true,
-  user_name: ENV["GMAIL_USERNAME"],
-  password: ENV["GMAIL_PASSWORD"]
-  }
+  # config.action_mailer.smtp_settings = {
+  # address: "smtp.gmail.com",
+  # port: 587,
+  # domain: "example.com",
+  # authentication: "plain",
+  # enable_starttls_auto: true,
+  # user_name: ENV["GMAIL_USERNAME"],
+  # password: ENV["GMAIL_PASSWORD"]
+  # }
+
+  conf.action_mailer.smtp_settings = {
+  :address        => 'smtp.sendgrid.net',
+  :port           => '587',
+  :authentication => :plain,
+  :user_name      => ENV['SENDGRID_USERNAME'],
+  :password       => ENV['SENDGRID_PASSWORD'],
+  :domain         => 'heroku.com',
+  :enable_starttls_auto => true
+}
+
 
   config.action_mailer.default_url_options = { :host => 'example.com' } 
   #replace example.com when I'm in production
