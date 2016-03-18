@@ -92,7 +92,6 @@ class ZestimatesController < ApplicationController
 		zestimate_low = @zestimate.zestimate_low
 		zestimate_high = @zestimate.zestimate_high
 		
-		
 
 		if @zestimate.update_attributes(zestimate_params)
 			@zestimate = Zestimate.find(params[:id])
