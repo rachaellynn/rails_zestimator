@@ -14,7 +14,10 @@
       Property Type: <%= @property_type %><br>
       Zestimate: <%= currency(@zestimate_value) %><br>
       Low Zestimate: <%= currency(@zestimate_low) %><br>
-      High Zestimate: <%= currency(@zestimate_high) %><br>
+      High Zestimate: <%= currency(@zestimate_high) %><br><br>
+      Market Report: <font color="red"><%= @market_report == 1 ? "Set up a monthly market report for this person" : "No" %><br></font>
+      Agent Contact: <font color="red"><%= @agent_contact == 1 ? "Contact this person NOW about an opinion of value" : "No" %><br></font>
+
     </p>
   </body>
 </html>
