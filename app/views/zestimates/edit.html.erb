@@ -7,12 +7,16 @@
 
     <div class="col-md-6">	
     	<div class="form-horizontal">
-          <%= f.check_box :market_report, class: 'check-box' %> Send me a monthly market report for <b><%= @property_type %></b> in <b><%= @city %></b>
+          <div class="message">
+            <%= f.check_box :market_report, class: 'check-box' %> Send me a monthly market report for <b><%= @property_type %></b> in <b><%= @city %></b>
+          </div>
         </div>
 
         <div class="form-horizontal">  
+          <div class="message">
           	<%= f.check_box :agent_contact, class: 'check-box' %>
           	Please have an agent contact me to prepare an opinion of value and marketing plan
+          </div>
         </div>
 		    
     	<div class="form-group">

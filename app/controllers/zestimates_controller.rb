@@ -45,7 +45,7 @@ class ZestimatesController < ApplicationController
 		#url = 'http://www.zillow.com/webservice/GetSearchResults.htm'
 		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
-		if street == "" || zipcode == ""
+		if street == ""
 			flash[:danger] = "Please enter a valid street address along wtih a city and state OR zipcode"
 			redirect_to zestimates_path
 		else
@@ -78,23 +78,6 @@ class ZestimatesController < ApplicationController
 
 	end
 
-	# def edit
-	# 	@zestimate = Zestimate.find(params[:id])
-	# 	@agent_contact = @zestimate.agent_contact
-	# 	@market_report = @zestimate.market_report
-	# 	@contact = @zestimate.contact
-	# 	@email = @zestimate.email
-	# 	@name = @zestimate.name
-	# 	@street = @zestimate.street
-	# 	@city = @zestimate.city
-	# 	@state = @zestimate.state
-	# 	@zipcode = @zestimate.zipcode
-	# 	@property_type = @zestimate.property_type
-	# 	@zestimate_value = @zestimate.zestimate_value
-	# 	@zestimate_low = @zestimate.zestimate_low
-	# 	@zestimate_high = @zestimate.zestimate_high
-	# end
-
 	def update
 		@title = "Thank you!"
 		@zestimate = Zestimate.find(params[:id])
@@ -123,7 +106,7 @@ class ZestimatesController < ApplicationController
 			if email == "" && contact == ""
 				flash[:danger] = "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
 				redirect_to zestimate_path, action: "edit", id: id
-			elsif market_report == "1" && agent_contact == "1" & email 
+			elsif market_report == "1" && agent_contact == "1"
 				flash.now[:success] = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
 				AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 			elsif market_report == "1" && agent_contact == ""
