@@ -19,7 +19,8 @@ class AgentMailer < ApplicationMailer
     agents = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
   	random = Random.new
     random = random.rand(1..2).to_s #set max range to the number of agents in the hash
-    email = agents[random]
+    #email = agents[random]
+    email = "rachael@wordaroundtown.com"
   	mail(to: email, subject: 'Home Valuation Lead')
   end
 
