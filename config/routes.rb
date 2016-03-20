@@ -7,6 +7,8 @@ get 'zestimates/index'
 
   # You can have the root of your site routed with "root"
 root 'zestimates#index'
+mount Split::Dashboard, at: 'split'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

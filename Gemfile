@@ -35,7 +35,7 @@ gem 'figaro', '~> 1.1', '>= 1.1.1'
 
 # adding redis to store results from split gem's a/b tests
 gem 'redis', '~>3.2'
-gem 'split'
+gem 'split', require: 'split/dashboard'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

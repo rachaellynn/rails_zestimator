@@ -6,7 +6,8 @@ class ZestimatesController < ApplicationController
 	require 'open-uri'
 
 	def index
-	  	@title = "Your Home Price Estimator"
+	  	#@title = "Your Home Price Estimator"
+	  	@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
 
 	def show
@@ -72,6 +73,7 @@ class ZestimatesController < ApplicationController
 				@zestimate = Zestimate.new(zestimate_params)
 				@zestimate.save
 				@zestimate.update_attributes(:property_type => @property_type, :zestimate_value => @zestimate_value, :zestimate_low => @zestimate_low, :zestimate_high => @zestimate_high)
+				finished('form_title')
 				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 			end	
 		end
@@ -103,6 +105,7 @@ class ZestimatesController < ApplicationController
 			id = @zestimate.id
 			email = @zestimate.email
 			contact = @zestimate.contact
+
 			if email == "" && contact == ""
 				flash[:danger] = "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
 				redirect_to zestimate_path, action: "edit", id: id
