@@ -39,7 +39,7 @@ class ZestimatesController < ApplicationController
 		name = params[:zestimate][:name]
 		email = params[:zestimate][:email]
 		
-		@title = 'Your Home Value Estimate'
+		@title = "Your Home Value Estimate"
 		#call the zillow api
 		@ID = ENV["zillow_api_id"]
 		#@ID = Figaro.env.zillow_api_id
