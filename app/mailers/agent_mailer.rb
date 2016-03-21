@@ -2,7 +2,8 @@ class AgentMailer < ApplicationMailer
   default from: 'info@eplacehomes.com'
   helper ZestimatesHelper
 
-  def lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report)
+  def lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report)
+    @id = id
     @name = name
     @email = email
     @contact = contact
@@ -16,12 +17,14 @@ class AgentMailer < ApplicationMailer
     @zestimate_high = zestimate_high
     @agent_contact = agent_contact
     @market_report = market_report
-    agents = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
+    #@agent_contact = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
   	random = Random.new
     random = random.rand(1..2).to_s #set max range to the number of agents in the hash
     #email = agents[random]
-    email = "rachael@wordaroundtown.com"
-  	mail(to: email, subject: 'Home Valuation Lead')
+    @assigned_agent = "rachael@wordaroundtown.com"
+    @zestimate = Zestimate.find(@id)
+    @zestimate.update_attributes(assigned_agent: @assigned_agent)
+  	mail(to: @agent_contact, subject: 'Home Valuation Lead')
   end
 
 end

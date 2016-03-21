@@ -56,7 +56,7 @@ class ZestimatesController < ApplicationController
 			@code = @doc.at_xpath("//code").content
 			# flash[:error] = @code
 			if @code != "0"
-				flash[:danger] = "Please enter a valid street address along wtih a city and state OR zipcode"
+				flash[:danger] = "Please enter a valid street address along wtih a city, state and zipcode"
 					#flash[:error] = @call_url
 				redirect_to zestimates_path
 			else
@@ -106,18 +106,22 @@ class ZestimatesController < ApplicationController
 			email = @zestimate.email
 			contact = @zestimate.contact
 
-			if email == "" && contact == ""
-				flash[:danger] = "Please enter an email or contact info if you would like to receive market reports or be contacted by an agent"
+			#if (email == "" || !!email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)) && contact == ""
+			#if !!email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/)
+			if (!email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/) || email == "") && contact == "" && (agent_contact == 1 || market_report == 1)
+				flash[:danger] = "Please enter a valid email or contact info if you would like to receive market reports or be contacted by an agent"
 				redirect_to zestimate_path, action: "edit", id: id
-			elsif market_report == "1" && agent_contact == "1"
+			elsif market_report == 1 && agent_contact == 1
 				flash.now[:success] = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
-				AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
-			elsif market_report == "1" && agent_contact == ""
+				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
+			elsif market_report == 1 && agent_contact == 0
 				flash.now[:success] = "Thanks! You'll receive your first market report shortly."
-				AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
-			else
-				flash.now[:success] = "Thanks! An agent will be in touch with you shortly"
-				AgentMailer.lead_email(name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
+				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
+			elsif market_report == 0 && agent_contact == 1
+				flash.now[:success] = "Thanks! An agent will be touch shortly"
+			else #submits without requesting any info
+				flash.now[:success] = "Thanks for using the ePlace Home Value Estimator!"
+				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 			end
 		
 		else
@@ -130,7 +134,7 @@ class ZestimatesController < ApplicationController
 private	
 	
 	def zestimate_params
-		params.require(:zestimate).permit(:name, :email, :street, :city, :state, :zipcode, :property_type, :agent_contact, :market_report, :contact, :comments)
+		params.require(:zestimate).permit(:id, :name, :email, :street, :city, :state, :zipcode, :property_type, :agent_contact, :market_report, :contact, :comments)
 	end	
 
 end
