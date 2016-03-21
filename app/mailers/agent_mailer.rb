@@ -24,7 +24,7 @@ class AgentMailer < ApplicationMailer
     @assigned_agent = "rachael@wordaroundtown.com"
     @zestimate = Zestimate.find(@id)
     @zestimate.update_attributes(assigned_agent: @assigned_agent)
-  	mail(to: @agent_contact, subject: 'Home Valuation Lead')
+  	mail(to: @assigned_agent, subject: 'Home Valuation Lead')
   end
 
 end
