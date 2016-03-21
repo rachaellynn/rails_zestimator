@@ -6,8 +6,8 @@ class ZestimatesController < ApplicationController
 	require 'open-uri'
 
 	def index
-	  	#@title = "Your Home Price Estimator"
-	  	@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
+	  	@title = "Get Your Free Home Price Estimate Now!"
+	  	#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
 
 	def show
