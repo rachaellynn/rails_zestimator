@@ -47,7 +47,7 @@ class ZestimatesController < ApplicationController
 		url = 'http://www.zillow.com/webservice/GetDeepSearchResults.htm' #alternate URL with more data to be used later . . . include usecode, number of bedrooms, last sale date, 
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
 		if street == ""
-			flash[:danger] = "Please enter a valid street address along wtih a city and state OR zipcode"
+			flash[:danger] = "Please enter a valid street address along wtih a city, state and zipcode"
 			redirect_to zestimates_path
 		else
 			#flash[:error] = "this is our message"
