@@ -119,6 +119,7 @@ class ZestimatesController < ApplicationController
 				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 			elsif market_report == 0 && agent_contact == 1
 				flash.now[:success] = "Thanks! An agent will be touch shortly"
+				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 			else #submits without requesting any info
 				flash.now[:success] = "Thanks for using the ePlace Home Value Estimator!"
 				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
