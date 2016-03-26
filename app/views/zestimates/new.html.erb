@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-3">
+  </div>
+
+  <div class="col-md-6">
+    <div class="well">
+
+
+      <%= form_for :zestimate, url: zestimates_path do |f| %>
+        
+        <div class="from-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email %>  
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :street, "Street Address" %>  
+          <%= f.text_field :street, class: "form-control" %>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-4">  
+            <%= f.label :city %>
+            <%= f.text_field :city, class: "form-control" %>
+          </div>
+
+          <div class="col-md-4">
+            <%= f.label :state %>
+            <div class="dropdown">
+              <%= f.select :state, options_for_select(["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"],"MA"), class: "dropdown-menu" %>
+            </div>
+          </div>
+     
+          <div class="col-md-4"> 
+            <%= f.label :zipcode, "ZIP" %>
+            <%= f.text_field :zipcode, class: "form-control" %>
+          </div>
+
+        </div> 
+  
+      <div class="form-group">
+        <%= f.submit "Submit", class: "btn btn-success" %>
+      </div>  
+
+    <% end %>
+
+    </div>
+  </div>
+  
+  <div class="col-md-3">
+  </div>
+
+</div>  
+

@@ -2,12 +2,16 @@ class ZestimatesController < ApplicationController
 
 	skip_before_filter  :verify_authenticity_token
 	
-
 	require 'open-uri'
 
 	def index
-	  	@title = "Get Your Free Home Price Estimate Now!"
-	  	#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
+		@zestimates = Zestimate.all.sort_by{ |t| t.created_at }.reverse #sorts leads by date in reverse order
+		@title = "Leads"
+	end
+
+	def new
+		@title = "Get your Free Home Price Estimate Now!"
+		#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
 
 	def show
@@ -73,7 +77,7 @@ class ZestimatesController < ApplicationController
 				@zestimate = Zestimate.new(zestimate_params)
 				@zestimate.save
 				@zestimate.update_attributes(:property_type => @property_type, :zestimate_value => @zestimate_value, :zestimate_low => @zestimate_low, :zestimate_high => @zestimate_high)
-				finished('form_title')
+				#finished('form_title')
 				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 			end	
 		end
@@ -111,6 +115,21 @@ class ZestimatesController < ApplicationController
 			if (!email.match(/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/) || email == "") && contact == "" && (agent_contact == 1 || market_report == 1)
 				flash[:danger] = "Please enter a valid email or contact info if you would like to receive market reports or be contacted by an agent"
 				redirect_to zestimate_path, action: "edit", id: id
+			#rewrite this to send an email only if the address has not been 
+			# previously assigned AND to send out a lead even if the person hasn't requested info -- rather than scheduling an overnight job -- just handle everything right away. 
+			
+			# elsif
+			# 	case    
+			# 	when market_report == 1 && agent_contact == 1
+			# 	@message = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
+			# 	when market_report == 1 && agent_contact == 0
+			# 	@message = "Thanks! You'll receive your first market report shortly."
+			# 	when market_report == 0 && agent_contact == 1
+			# 	@message = "Thanks! An agent will be touch shortly"
+			# 	else 
+			# 	@message = "Thanks for using the ePlace Home Value Estimator!"
+			# 	end
+
 			elsif market_report == 1 && agent_contact == 1
 				flash.now[:success] = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
 				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now

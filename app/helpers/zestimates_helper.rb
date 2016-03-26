@@ -26,5 +26,12 @@ module ZestimatesHelper
 		@output = use_hash[string]	
 	end	
 
+	def cleantime(string)
+		string = string.to_s.gsub(/ -0\d00/,'')
+	end
+
+	def answer(int)
+		int == 1? "Yes": "No"
+	end	
 
 end
