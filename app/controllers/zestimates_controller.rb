@@ -1,5 +1,5 @@
 class ZestimatesController < ApplicationController
-
+	http_basic_authenticate_with :name => ENV["ADMIN_USERNAME"], :password => ENV["ADMIN_PASSWORD"], only: :index
 	skip_before_filter  :verify_authenticity_token
 	
 	require 'open-uri'
