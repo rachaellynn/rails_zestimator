@@ -52,7 +52,7 @@ class ZestimatesController < ApplicationController
 		# read more here: http://www.zillow.com/howto/api/GetDeepSearchResults.htm
 		if street == ""
 			flash[:danger] = "Please enter a valid street address along wtih a city, state and zipcode"
-			redirect_to zestimates_path
+			redirect_to new_zestimate_path
 		else
 			#flash[:error] = "this is our message"
 			@call_url = url + "?zws-id=" + @ID + "&address=" + street + "&citystatezip=" + city + state + zipcode
@@ -62,7 +62,7 @@ class ZestimatesController < ApplicationController
 			if @code != "0"
 				flash[:danger] = "Please enter a valid street address along wtih a city, state and zipcode"
 					#flash[:error] = @call_url
-				redirect_to zestimates_path
+				redirect_to new_zestimate_path
 			else
 				@street = @doc.at_xpath("//street").content
 				@city = @doc.at_xpath("//city").content
@@ -118,18 +118,6 @@ class ZestimatesController < ApplicationController
 			#rewrite this to send an email only if the address has not been 
 			# previously assigned AND to send out a lead even if the person hasn't requested info -- rather than scheduling an overnight job -- just handle everything right away. 
 			
-			# elsif
-			# 	case    
-			# 	when market_report == 1 && agent_contact == 1
-			# 	@message = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
-			# 	when market_report == 1 && agent_contact == 0
-			# 	@message = "Thanks! You'll receive your first market report shortly."
-			# 	when market_report == 0 && agent_contact == 1
-			# 	@message = "Thanks! An agent will be touch shortly"
-			# 	else 
-			# 	@message = "Thanks for using the ePlace Home Value Estimator!"
-			# 	end
-
 			elsif market_report == 1 && agent_contact == 1
 				flash.now[:success] = "Thanks! An agent will be in touch shortly and you'll receive your first market report soon" 
 				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
@@ -143,10 +131,9 @@ class ZestimatesController < ApplicationController
 				flash.now[:success] = "Thanks for using the ePlace Home Value Estimator!"
 				AgentMailer.lead_email(id,name,email,contact,street,city,state,zipcode,property_type,zestimate_value,zestimate_low,zestimate_high,agent_contact,market_report).deliver_now
 			end
-		
 		else
 			render 'edit'
-		end
+		end 
 
 	end
 

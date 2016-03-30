@@ -19,6 +19,13 @@ module ZestimatesHelper
 		int == 1? "Yes": "No"
 	end	
 
+	def select_agent
+		agent_id ||= 1 #set initial agent id
+		agent_hash = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
+		@assigned_agent = agent_hash[agent_id]
+		agent_id < 2? agent_id += 1: agent_id = 1
+	end
+
 end
 
 	# def currency(string)
@@ -35,3 +42,4 @@ end
 	# def currency(string)
 	# 	string.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse.split('').insert(0,'$').join
 	# end
+
