@@ -21,11 +21,10 @@ module ZestimatesHelper
 
 	def select_agent
 		agent_id ||= 1 #set initial agent id
-		agent_hash = { '1' => 'rachael@wordaroundtown.com', '2' => 'rachael@eplacehomes.com'}
+		agent_hash = { 1 => 'rachael@wordaroundtown.com', 2 => 'rachael@eplacehomes.com'}
 		@assigned_agent = agent_hash[agent_id]
 		agent_id < 2? agent_id += 1: agent_id = 1
 	end
-
 end
 
 	# def currency(string)
