@@ -1,6 +1,6 @@
 class ZestimatesController < ApplicationController
 	http_basic_authenticate_with :name => ENV["ADMIN_USERNAME"], :password => ENV["ADMIN_PASSWORD"], only: :index
-	skip_before_filter  :verify_authenticity_token
+	skip_before_filter :verify_authenticity_token
 	
 	require 'open-uri'
 
@@ -11,6 +11,7 @@ class ZestimatesController < ApplicationController
 
 	def new
 		@title = "Get your Free Home Price Estimate Now!"
+		@agent? @@agent = @agent: @@agent = 0
 		#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
 
