@@ -12,7 +12,7 @@ class ZestimatesController < ApplicationController
 	def new
 		@title = "Get your Free Home Price Estimate Now!"
 		@agent? @@agent = @agent: @@agent = 0
-		@test_email_label = ab_test('Email','Email (optional)')
+		@test_email_label = ab_test(:email_title,'Email','Email (optional)')
 		#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
 
@@ -80,6 +80,7 @@ class ZestimatesController < ApplicationController
 				@zestimate.save
 				@zestimate.update_attributes(:property_type => @property_type, :zestimate_value => @zestimate_value, :zestimate_low => @zestimate_low, :zestimate_high => @zestimate_high)
 				#finished('form_title')
+				finished(:email_title)
 				#@zestimate = Zestimate.new(name: name, email: email, street: @street, city: @city, state: @state, zipcode: @zipcode, property_type: @property_type)
 			end	
 		end
