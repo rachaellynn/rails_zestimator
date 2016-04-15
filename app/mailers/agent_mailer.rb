@@ -23,7 +23,7 @@ class AgentMailer < ApplicationMailer
     #agent_hash = { 1 => 'rachael@eplacehomes.com', 2 => 'rachaellburger@gmail.com', 3 => 'rachael@wordaroundtown.com'}
     agent_hash = { 1 => 'herb@eplacehomes.com', 2 => 'jasmin.lucci@eplacehomes.com', 3 => 'jennifer.keenan@eplacehomes.com', 4 => 'john.turner@eplacehomes.com', 5 => 'michael.pfister@eplacehomes.com', 6 => 'ryan.pietras@eplacehomes.com', 7 => 'victor.divine@eplacehomes.com'}
     @assigned_agent = agent_hash[@@agent_id]
-    @@agent_id < 2? @@agent_id += 1: @@agent_id = 1
+    @@agent_id < 7? @@agent_id += 1: @@agent_id = 1
     #@@agent_id < 7? @@agent_id += 1: @@agent_id = 1
 
     #update the assigned agent and send the email to the agent and to "info"
