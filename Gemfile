@@ -37,6 +37,7 @@ gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem 'redis', '~>3.2'
 gem 'split', require: 'split/dashboard'
 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -71,7 +72,7 @@ group :production do
   gem 'rails_12factor'
   gem 'rails_log_stdout', github: 'heroku/rails_log_stdout'
   gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
-  gem 'rake'
+  gem 'rake', '11.1.2' ##added version because couldn't run db:migrate on development
 end
 
 
