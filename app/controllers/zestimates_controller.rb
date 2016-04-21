@@ -61,7 +61,7 @@ class ZestimatesController < ApplicationController
 			@doc = Nokogiri::HTML(open(@call_url))
 			@code = @doc.at_xpath("//code").content
 			# flash[:error] = @code
-			if @code != "0"
+			if @code != "0" || @doc.at_xpath("//amount").content == ""
 				flash[:danger] = "Please enter a valid street address along wtih a city, state and zipcode"
 					#flash[:error] = @call_url
 				redirect_to new_zestimate_path
