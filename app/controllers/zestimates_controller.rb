@@ -12,7 +12,7 @@ class ZestimatesController < ApplicationController
 	def new
 		@title = "Get your Free Home Price Estimate Now!"
 		@agent? @@agent = @agent: @@agent = 0
-		@explanation_text = ab_test('intro text','Knowledge is power. Especially in our fast-paced real estate market. Enter your address above to get an instant home valuation.','The other thing')
+		@explanation_text = ab_test('intro text','Knowledge is power. Especially in our fast-paced real estate market. Enter your address above to get an instant home valuation.','')
 		#@test_email_label = ab_test('email_title','Email','Email (optional)')
 		#@title = ab_test('form_title','Your Home Price Estimator','Get Your Free Home Price Estimate Now!')
 	end
