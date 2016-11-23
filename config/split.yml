@@ -7,5 +7,5 @@ fi: localhost:6379
 #production:  redis://h:pahdsfjqa9dfnj1hac6k8e66jp1@ec2-107-22-210-83.compute-1.amazonaws.com:13459 
 # updated redis database on 5/17 because of error on site . . . 
 #production: ENV["REDIS_URL"]
-product: redis://h:pahdsfjqa9dfnj1hac6k8e66jp1@ec2-54-225-230-45.compute-1.amazonaws.com:6569
+production: redis://h:pahdsfjqa9dfnj1hac6k8e66jp1@ec2-54-225-230-45.compute-1.amazonaws.com:6569
 #updated to use environmental variable on 11/23
