@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
-
+gem 'httparty' '~> 0.14.0' #added for parsing json, 3/4/17
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
 # adding redis to store results from split gem's a/b tests
