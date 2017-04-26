@@ -37,7 +37,7 @@ class AgentMailer < ApplicationMailer
     # 1. change the lead_rotation of the agent just emailed to 0
     @agent.update_attributes(lead_rotation:0)   
     # 2. figure out new agent ID
-    @agent.id == 6? @id = 1: @id = @agent.id += 1
+    @agent.id == 5? @id = 1: @id = @agent.id += 1
     # 3. update the info
     @agent = Agent.find(@id)
     @agent.update_attributes(lead_rotation:1)
