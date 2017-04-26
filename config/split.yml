@@ -9,3 +9,4 @@ fi: localhost:6379
 #production: ENV["REDIS_URL"]
 production: redis://h:pahdsfjqa9dfnj1hac6k8e66jp1@ec2-54-225-230-45.compute-1.amazonaws.com:6569
 #updated to use environmental variable on 11/23 -- didn't work so put in updated REDIS URL
+
